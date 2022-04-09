@@ -30,6 +30,12 @@ public class Assignment8Application {
 
 		while (tasks.stream().filter(CompletableFuture::isDone).count() < size) {
 			// Loop for the main thread to be alive until all threads are done working
+			System.out.println("Sleeping ...");
+        		try {
+         		   Thread.sleep(1000);
+       			 } catch (InterruptedException e) {
+         			   System.out.println("Interrupted.");
+       			 }
 		}
 
 		// Count frequencies of numbers in the list of all numbers

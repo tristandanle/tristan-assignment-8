@@ -32,9 +32,10 @@ public class Assignment8Application {
 			// Loop for the main thread to be alive until all threads are done working
 			System.out.println("Sleeping ...");
         		try {
-         		   Thread.sleep(1000);
+         		     Thread.sleep(1000);
        			 } catch (InterruptedException e) {
-         			   System.out.println("Interrupted.");
+			     Thread.currentThread().interrupt();
+         		     System.out.println("Interrupted.");
        			 }
 		}
 

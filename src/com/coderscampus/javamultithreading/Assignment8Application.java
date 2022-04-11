@@ -11,11 +11,11 @@ import java.util.concurrent.Executors;
 
 public class Assignment8Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		Assignment8 assignment = new Assignment8();
 		final int size = 10000;
-		List<CompletableFuture<Void>> tasks = new ArrayList<>();
+		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>();
 		List<Integer> listIntegers = new ArrayList<>();
 		ExecutorService poolCached = Executors.newCachedThreadPool();
 		// ExecutorService poolFixed = Executors.newFixedThreadPool(1);
@@ -23,20 +23,18 @@ public class Assignment8Application {
 
 		// Fetch data in asynchronous manner
 		for (int i = 0; i < size; i++) {
-			CompletableFuture<Void> task = CompletableFuture.supplyAsync(() -> assignment.getNumbers(), poolCached)
-					.thenAccept(integers -> listIntegers.addAll(integers));
-			tasks.add(task);
+			 CompletableFuture<List<Integer>> future = CompletableFuture.supplyAsync(() -> assignment
+					.getNumbers(), poolCached);
+			//CompletableFuture<Boolean> futures = future.thenApply(integers -> listIntegers.addAll(integers));
+			CompletableFuture<Void> futures = future.thenAccept(integers -> listIntegers.addAll(integers));
+			tasksFutures.add(futures);
 		}
 
-		while (tasks.stream().filter(CompletableFuture::isDone).count() < size) {
-			// Loop for the main thread to be alive until all threads are done working
-			System.out.println("Sleeping ...");
-        		try {
-         		     Thread.sleep(1000);
-       			 } catch (InterruptedException e) {
-			     Thread.currentThread().interrupt();
-         		     System.out.println("Interrupted.");
-       			 }
+		
+		while (tasksFutures.stream().filter(CompletableFuture::isDone).count() < size) {
+			if (Thread.interrupted()) {
+			    throw new InterruptedException();
+			}
 		}
 
 		// Count frequencies of numbers in the list of all numbers

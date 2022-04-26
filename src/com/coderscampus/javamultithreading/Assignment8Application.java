@@ -19,7 +19,8 @@ public class Assignment8Application {
 		final int size = 1000;
 		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>(size);
 		List<Integer> listIntegers = Collections.synchronizedList(new ArrayList<>());
-		//List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();   // https://devstory.net/13641/java-copyonwritearraylist
+		// https://devstory.net/13641/java-copyonwritearraylist
+		//List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();   
 		ExecutorService poolCached = Executors.newCachedThreadPool();
 		//ExecutorService poolFixed = Executors.newFixedThreadPool(3);
 		// ExecutorService poolSingled = Executors.newSingleThreadExecutor();

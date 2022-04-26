@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
-//import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,9 +18,7 @@ public class Assignment8Application {
 		Assignment8 assignment = new Assignment8();
 		final int size = 1000;
 		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>();
-		// https://www.netjstech.com/2015/09/how-and-why-to-synchronize-arraylist-in-java.html
-		List<Integer> listIntegers = Collections.synchronizedList(new ArrayList<>());
-		//List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();
+		List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();
 		ExecutorService poolCached = Executors.newCachedThreadPool();
 		//ExecutorService poolFixed = Executors.newFixedThreadPool(3);
 		// ExecutorService poolSingled = Executors.newSingleThreadExecutor();

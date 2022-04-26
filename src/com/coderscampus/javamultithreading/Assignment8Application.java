@@ -17,8 +17,8 @@ public class Assignment8Application {
 
 		Assignment8 assignment = new Assignment8();
 		final int size = 1000;
-		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>();
-		List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();
+		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>(size);
+		List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>(size);
 		ExecutorService poolCached = Executors.newCachedThreadPool();
 		//ExecutorService poolFixed = Executors.newFixedThreadPool(3);
 		// ExecutorService poolSingled = Executors.newSingleThreadExecutor();
@@ -34,7 +34,7 @@ public class Assignment8Application {
 		}
 
 		
-		while (tasksFutures.stream().filter(CompletableFuture::isDone).count() < 1000)
+		while (tasksFutures.stream().filter(CompletableFuture::isDone).count() < size)
         {
 			if (Thread.interrupted()) {
 			    throw new InterruptedException();

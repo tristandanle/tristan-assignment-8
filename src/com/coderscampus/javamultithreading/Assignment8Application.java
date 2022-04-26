@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CopyOnWriteArrayList;
+// import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,7 +18,8 @@ public class Assignment8Application {
 		Assignment8 assignment = new Assignment8();
 		final int size = 1000;
 		List<CompletableFuture<Void>> tasksFutures = new ArrayList<>(size);
-		List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>(size);
+		List<Integer> listIntegers = Collections.synchronizedList(new ArrayList<>());
+		//List<Integer> listIntegers = new CopyOnWriteArrayList<Integer>();   // https://devstory.net/13641/java-copyonwritearraylist
 		ExecutorService poolCached = Executors.newCachedThreadPool();
 		//ExecutorService poolFixed = Executors.newFixedThreadPool(3);
 		// ExecutorService poolSingled = Executors.newSingleThreadExecutor();
